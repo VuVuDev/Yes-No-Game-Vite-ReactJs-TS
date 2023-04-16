@@ -80,7 +80,7 @@ function Summary({gameData, setGameData}:Ipros) {
         },
         {
             field: 'persentCorrect',
-            headerName: "Correct Persent (%)",
+            headerName: "Correct Percent (%)",
             width: 180
         }, 
         {

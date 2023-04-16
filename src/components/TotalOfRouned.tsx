@@ -49,6 +49,10 @@ function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound,
             alert("You must enter total of round to start the game!")
             return
         }
+        if (parseInt(totalRound) <= 0) {
+            alert("Number of round must greater than 0!")
+            return
+        }
         if (isNaN(Number(totalRound))) {
             alert("Total of round must be a number!")
             return

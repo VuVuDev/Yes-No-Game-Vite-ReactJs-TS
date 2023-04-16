@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from 'react-router';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 interface Ipros {
@@ -8,6 +9,7 @@ interface Ipros {
 }
 
 function History({gameHistory, setGameHisotry}:Ipros) {
+    const navigate = useNavigate()
     const columns: GridColDef[] = [
         {
             field: "id", 
@@ -29,7 +31,7 @@ function History({gameHistory, setGameHisotry}:Ipros) {
         },
         {
             field: 'persentCorrect',
-            headerName: "Persent Correct (%)",
+            headerName: "Percent Correct (%)",
             align: 'center',
             width:160
         },
@@ -67,6 +69,7 @@ function History({gameHistory, setGameHisotry}:Ipros) {
                         onClick={() => handleDeleteAllHistory()}
                     >Delete All</button>
                     <button className='px-4 py-2 bg-slate-100 rounded-md font-bold cursor-pointer hover:bg-green-500 hover:text-white transition'
+                        onClick={() => navigate("/")}
                     >Go Home</button>
                </div>
                 {
