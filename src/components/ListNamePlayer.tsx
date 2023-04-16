@@ -2,7 +2,15 @@ import React, { useEffect } from 'react'
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import { TiDelete } from "react-icons/ti";
-function ListNamePlayer({gameData, setClick, displayModel, setGameData, inputRef}) {
+
+interface IPros {
+    gameData: any
+    setClick: any
+    displayModel: any
+    setGameData: any
+    inputRef: any
+}
+function ListNamePlayer({gameData, setClick, displayModel, setGameData, inputRef}:IPros) {
     const CustomButton = styled(Button)`
     color: white; 
     width: 320px;

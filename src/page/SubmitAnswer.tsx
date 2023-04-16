@@ -5,11 +5,20 @@ import axios from 'axios';
 
 import AnswerOption from '../components/AnswerOption';
 
-function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, setResult}) {
+interface Ipros {
+    gameData: any
+    totalRound: any
+    setGameData: any
+    loading: any
+    setLoading: any,
+    setResult: any
+}
+
+function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, setResult}:Ipros) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const navigate = useNavigate() 
     const fetchData = async () => {
-        setLoading(loading => true)
+        setLoading(true)
         try {
          const responses = await Promise.all(
             Array.from({length: gameData[0]?.rounds}, () => axios.get('https://yesno.wtf/api'))
@@ -20,7 +29,7 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         } catch (error) {
             console.log(error)
         } finally {
-            setLoading(loading => false)
+            setLoading(false)
         }
     }
 
@@ -44,7 +53,7 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
     ]
     const randomColor = textColor[Math.floor(Math.random() * textColor.length)]
     const setPlayerColor = () => {
-        let newGameData = gameData.map((value, index) => {
+        let newGameData = gameData.map((value:any, index:number) => {
             if(index === currentIndex) {
                 let rColor = randomColor
                 value.color = rColor
@@ -74,7 +83,7 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         let newGameData = gameData.map((value:any, index:number) => {
             value.result = data
             let count = 0
-            value?.chosen?.map((answer, index) => {
+            value?.chosen?.map((answer:any, index:number) => {
                 if(answer === data[index]) {
                     count++
                 }

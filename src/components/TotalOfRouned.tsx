@@ -3,7 +3,14 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import { useNavigate} from 'react-router';
 
-function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound, setGameData}) {
+interface Ipros {
+    displayModel: any
+    gameData: any
+    handleSetTotalRound: any
+    setGameData: any
+    totalRound:any
+}
+function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound, setGameData}:Ipros) {
     const navigate = useNavigate()
     const checkGameData = () => {
         if(gameData.length <= 1) {

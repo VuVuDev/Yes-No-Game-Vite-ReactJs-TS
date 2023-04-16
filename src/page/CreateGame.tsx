@@ -2,9 +2,25 @@ import React, { useState } from 'react'
 import EnterNewName from '../components/EnterNewName';
 import ListNamePlayer from '../components/ListNamePlayer';
 import TotalOfRouned from '../components/TotalOfRouned';
+
+interface IPros {
+    inputRef: any
+    handleOnChange: any
+    handleSetPlayer: any
+    displayModel: any,
+    inputText: string,
+    setPlayer: any,
+    gameData: any,
+    hiddenModel: any,
+    setClick: any,
+    setGameData: any,
+    handleSetTotalRound: any,
+    totalRound: any
+}
+
 function CreateGame({inputRef, handleOnChange, handleSetPlayer, displayModel,
     inputText, setPlayer, gameData, hiddenModel, setClick, setGameData, 
-    handleSetTotalRound, totalRound}) {
+    handleSetTotalRound, totalRound}: IPros) {
     return (
         <div className='flex w-screen flex-col h-screen items-center pt-[50px]'>
         <div className='flex flex-col items-center'>
@@ -17,7 +33,7 @@ function CreateGame({inputRef, handleOnChange, handleSetPlayer, displayModel,
             inputText = {inputText}
             hiddenModel = {hiddenModel}
             setClick = {setClick}
-            handleOnChange={(e) => handleOnChange(e)}
+            handleOnChange={(e:any) => handleOnChange(e)}
             handleSetPlayer = {() => handleSetPlayer()}
             setPlayer = {() => setPlayer()}
         ></EnterNewName>

@@ -1,6 +1,16 @@
 import React from 'react'
 
-function EnterNewName({inputRef, handleOnChange, handleSetPlayer, setPlayer,inputText, hiddenModel, setClick}) {
+interface Ipros {
+    inputRef: any
+    handleOnChange: any
+    handleSetPlayer: any
+    setPlayer: any
+    inputText: any
+    hiddenModel: any
+    setClick: any
+}
+
+function EnterNewName({inputRef, handleOnChange, handleSetPlayer, setPlayer,inputText, hiddenModel, setClick}:Ipros) {
     const handleSetPlayerOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === "Enter") {
             handleSetPlayer()
@@ -18,7 +28,7 @@ function EnterNewName({inputRef, handleOnChange, handleSetPlayer, setPlayer,inpu
             </div>
             <div className='flex flex-row justify-evenly w-[100%]'>
                 <button className='border-2 w-24 hover:bg-slate-50 transition' onClick={() => handleSetPlayer()}>Oke</button>
-                <button className='border-2 w-24 hover:bg-slate-50 transition' onClick={() => setClick(click => true)}>Cancel</button>
+                <button className='border-2 w-24 hover:bg-slate-50 transition' onClick={() => setClick(true)}>Cancel</button>
             </div>
         </div>
     )

@@ -3,7 +3,12 @@ import {useState} from 'react'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router';
 
-function Summary({gameData, setGameData}) {
+interface Ipros {
+    gameData: any
+    setGameData: any
+}
+
+function Summary({gameData, setGameData}:Ipros) {
     
     const [search, setSearch] = useState<boolean>(false)
     const [searchList, setSearchList] = useState<object[]>([])
@@ -24,7 +29,6 @@ function Summary({gameData, setGameData}) {
 
     let hiddenTable = search ? "" : "hidden"
     let appearTable = search ? "hidden" : ""
-    // const rows:any = []
 
     const columns: GridColDef[] = [
         {

@@ -2,7 +2,13 @@ import React from 'react'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-function Home({setClick, click, setGameData, gameHistory}) {
+interface IPros {
+    setClick: any
+    setGameData: any
+    gameHistory: any
+}
+
+function Home({setClick, setGameData, gameHistory}:IPros) {
     const [startActive, setStartActive] = useState(false)
     let started = startActive ? "bg-green-500" : "bg-gray-500"
     let activeAdd = startActive ? "" : "hidden"
@@ -10,7 +16,7 @@ function Home({setClick, click, setGameData, gameHistory}) {
     const handleAddNewGame = () => {
         setGameData([])
         navigate("/create-game")
-        setClick(click => false)
+        setClick(false)
     }
     return (
         <div className='flex w-screen flex-col h-screen items-center pt-[50px]'>

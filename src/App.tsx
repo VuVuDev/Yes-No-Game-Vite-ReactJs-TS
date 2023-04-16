@@ -9,9 +9,24 @@ import Result from './page/Result'
 import Summary from './page/Summary'
 import History from './page/History'
 
+interface Player {
+  newPlayer: {
+    id: number
+    name: string
+    createAt: string
+    color: string,
+    rounds: string,
+    chosen: object,
+    result: object,
+    persentCorrect: number,
+    totalCorrect: number,
+    status: string,
+  }
+}
+
 function App() {
   const [totalRound, setTotalRound] = useState<string>("")
-  const [newPlayer, setNewPlayer] = useState<object>({
+  const [newPlayer, setNewPlayer] = useState<Player['newPlayer']>({
     id: 0,
     name: "",
     createAt: "",
@@ -107,7 +122,6 @@ function App() {
       
       <Route path='/' element={
       <Home
-        click = {click}
         setClick = {() => setClick(false)}
         setGameData = {setGameData}
         gameHistory={gameHistory}
@@ -124,7 +138,7 @@ function App() {
         setGameData = {setGameData}
         handleSetTotalRound = {handleSetTotalRound}
         totalRound = {totalRound}
-        handleOnChange={(e) => handleOnChange(e)}
+        handleOnChange={(e:any) => handleOnChange(e)}
         handleSetPlayer={() => handleSetPlayer()}
         setPlayer = {() => setPlayer()}  
       ></CreateGame>}></Route>

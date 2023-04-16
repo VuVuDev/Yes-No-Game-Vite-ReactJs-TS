@@ -4,7 +4,16 @@ import { RotateSpinner, WhisperSpinner } from 'react-spinners-kit';
 import { Skeleton } from '@mui/material';
 import { useNavigate } from 'react-router';
 
-function Result({gameData, loading, result, setGameData, setGameHistory, gameHistory}) {
+interface Ipros {
+    gameData: any
+    loading: any
+    result: any
+    setGameData: any
+    setGameHistory: any
+    gameHistory: any
+}
+
+function Result({gameData, loading, result, setGameData, setGameHistory, gameHistory}:Ipros) {
     let hiddenButton = loading ? "hidden" : ""
     let appearButton = loading ? "" : "hidden"
     const navigate = useNavigate()
@@ -13,7 +22,6 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
         const maxPersentCorrect = gameData.reduce((max:any, player:any) => {
             return player?.persentCorrect > max ? player?.persentCorrect : max
         }, 0)
-        console.log(maxPersentCorrect);
         let newGameData = gameData.map((value:any, index:any) => {
             if(value?.persentCorrect === maxPersentCorrect) {
                 value.status = "Winner"  

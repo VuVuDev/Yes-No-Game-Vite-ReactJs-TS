@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { BiCheck } from "react-icons/bi";
 
-function Option({totalRound, player, setGameData,handleSetPlayerAnswer}) {
+interface IPros {
+    totalRound: any
+    player: any
+    setGameData: any
+    handleSetPlayerAnswer: any
+}
+
+function Option({totalRound, player, setGameData,handleSetPlayerAnswer}:IPros) {
     const rounds = []
     
     for(let i = 0; i < player?.rounds; i++) {
@@ -42,7 +49,7 @@ function Option({totalRound, player, setGameData,handleSetPlayerAnswer}) {
     )
 }
 
-function AnswerOption({player, setGameData,totalRound, handleSetPlayerAnswer}) {
+function AnswerOption({player, setGameData,totalRound, handleSetPlayerAnswer}:IPros) {
     return (
         <div className='mt-[20px] flex flex-col items-center'>
             <h1 className='font-bold'>{player?.name}'s Turn</h1>
