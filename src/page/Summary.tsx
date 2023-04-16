@@ -101,7 +101,7 @@ function Summary({gameData, setGameData}:Ipros) {
                     gameData.map((value:any, index:any) => {
                         if(value.status === "Winner") {
                             return (
-                                <span className={`${value.color}`} key={index}>{value.name}</span>
+                                <span className={`${value.color} mr-2`} key={index}>{value.id === gameData.length ? value.name : value.name + ","}</span>
                             )
                         }
                     })
