@@ -53,6 +53,11 @@ function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound,
             alert("Number of round must greater than 0!")
             return
         }
+        const pattern = /[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/;
+        if (pattern.test(totalRound)) {
+            alert("Total of round does not contain special character!")
+            return
+        }
         if (isNaN(Number(totalRound))) {
             alert("Total of round must be a number!")
             return
