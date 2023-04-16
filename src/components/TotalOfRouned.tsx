@@ -54,7 +54,6 @@ function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound,
             return
         } else {
             navigate("/submit-answer")
-            window.location.reload()
             setInfoPlayer(totalRound, tempArray)
             // console.log(gameData);
             

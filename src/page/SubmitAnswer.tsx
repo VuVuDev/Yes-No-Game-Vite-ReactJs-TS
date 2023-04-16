@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -15,7 +15,8 @@ interface Ipros {
 }
 
 function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, setResult}:Ipros) {
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const [answerArray, setAnswerArray] = useState<string[]>(Array.from({ length: gameData[0]?.rounds }, () => "Empty"))
     const navigate = useNavigate() 
     const fetchData = async () => {
         setLoading(true)
@@ -34,9 +35,11 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
     }
 
     const onSubmitButtonClick = () => {
+        
         if(currentIndex < gameData.length - 1) {
             setCurrentIndex(currentIndex + 1)
             setPlayerColor()
+            setAnswerArray(Array.from({ length: gameData[0]?.rounds }, () => "Empty"))
         }
         if(currentIndex == gameData.length - 1) {
             navigate("/result-game")
@@ -64,20 +67,28 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         })
         setGameData([...newGameData])
     }
+
     const handleSetPlayerAnswer = ((answerIndex:number, answerValue:string) => {
-        let newGameData = gameData.map((value:any, index:number) => {
+        let newList = [...answerArray]
+        if(answerArray[answerIndex] === answerValue) {
+            newList[answerIndex] = "Empty";
+            setAnswerArray(newList)
+        } else {
+            newList[answerIndex] = answerValue
+            setAnswerArray(newList)
+        }
+
+        const newGamData = gameData.map((value:any, index:number) => {
             if(index === currentIndex) {
-                const newValue = answerValue
-                value.chosen[answerIndex] = newValue
-                console.log(currentIndex);
-                console.log(value.chosen);
-            }            
+                value.chosen = newList
+            }
             return {
                 ...value
             }
-        })    
-        setGameData([...newGameData])    
+        })
+        setGameData([...newGamData])
     })
+    console.log("ARRAY NE: " + answerArray); 
 
     const handleSetPlayerResult = ((data:any) => {               
         let newGameData = gameData.map((value:any, index:number) => {
@@ -98,6 +109,7 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         setGameData([...newGameData])
     })
     
+
     return (
         <div className='flex flex-col items-center pt-[50px]'>
             <div className=''>

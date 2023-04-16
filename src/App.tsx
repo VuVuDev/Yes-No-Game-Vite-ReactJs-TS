@@ -113,8 +113,6 @@ function App() {
   }, [gameHistory]);
 
   console.log(gameData);
-  console.log(gameHistory);
-  
     
   return (
    <>
