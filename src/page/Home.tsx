@@ -6,15 +6,21 @@ interface IPros {
     setClick: any
     setGameData: any
     gameHistory: any
+    newPlayer:any
+    setNewPlayer: any
 }
 
-function Home({setClick, setGameData, gameHistory}:IPros) {
+function Home({setClick, setGameData, gameHistory, newPlayer, setNewPlayer}:IPros) {
     const [startActive, setStartActive] = useState(false)
     let started = startActive ? "bg-green-500" : "bg-gray-500"
     let activeAdd = startActive ? "" : "hidden"
     const navigate = useNavigate()
     const handleAddNewGame = () => {
         setGameData([])
+        setNewPlayer({
+            ...newPlayer,
+            name:""
+        })
         navigate("/create-game")
         setClick(false)
     }

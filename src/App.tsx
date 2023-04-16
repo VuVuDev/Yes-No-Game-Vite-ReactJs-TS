@@ -67,6 +67,17 @@ function App() {
     setClick(click => true)
   }
   
+  const checkDuplicateName = () => {
+    let bool = false
+    gameData.map((value:any,i:number) => {
+      if(newPlayer.name.toLocaleLowerCase().includes(value.name.toLocaleLowerCase())) {
+        alert("This name is already exist!")
+        bool = true
+      }
+    })
+    return bool
+  }
+
   const handleSetPlayer = ():void => {
     if(newPlayer.name === "" || newPlayer.name.trimEnd() === "") {
       alert("Input is empty!")
@@ -79,6 +90,18 @@ function App() {
     }
     if(/\d+/.test(newPlayer.name)) {
       alert("Name does not contain number!")
+      return
+    }
+
+    if(checkDuplicateName() == true) {
+      return
+    }
+    if(newPlayer.name.split("").length > 15) {
+      alert("Player name too long!")
+      setNewPlayer({
+        ...newPlayer,
+        name: ""
+      })
       return
     }
     if(newPlayer.name.split(' ').length >= 2) {
@@ -111,8 +134,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
   }, [gameHistory]);
-
-  console.log(gameData);
     
   return (
    <>
@@ -123,6 +144,8 @@ function App() {
         setClick = {() => setClick(false)}
         setGameData = {setGameData}
         gameHistory={gameHistory}
+        newPlayer={newPlayer}
+        setNewPlayer={setNewPlayer}
       ></Home>}></Route>
 
       <Route path='create-game' element={

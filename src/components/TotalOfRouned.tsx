@@ -58,6 +58,10 @@ function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound,
             alert("Total of round does not contain special character!")
             return
         }
+        if (parseInt(totalRound) >= 100) {
+            alert("Total of round too large!")
+            return
+        }
         if (isNaN(Number(totalRound))) {
             alert("Total of round must be a number!")
             return

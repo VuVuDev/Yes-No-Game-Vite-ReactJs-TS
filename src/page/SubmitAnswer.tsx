@@ -88,7 +88,6 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         })
         setGameData([...newGamData])
     })
-    console.log("ARRAY NE: " + answerArray); 
 
     const handleSetPlayerResult = ((data:any) => {               
         let newGameData = gameData.map((value:any, index:number) => {
