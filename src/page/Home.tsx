@@ -37,7 +37,7 @@ function Home({setClick, setGameData, gameHistory, newPlayer, setNewPlayer}:IPro
                 <button className={`${activeAdd} bg-gray-500 text-white font-bold transition mt-[20px] px-4 py-2 rounded-md`}
                 onClick={() => handleAddNewGame()}
                 >Add player</button>
-                <button className={`${gameHistory.length === 0 ? "bg-white" : "bg-blue-500 hover:bg-blue-600 transition"}  px-4 py-2 text-white font-bold rounded-md transition mt-[20px]`}
+                <button className={`${gameHistory.length === 0 ? "hidden" : "bg-blue-500 hover:bg-blue-600 transition"}  px-4 py-2 text-white font-bold rounded-md transition mt-[20px]`}
                 onClick={() => navigate("/history")}
                 >View History</button>
             </div>
