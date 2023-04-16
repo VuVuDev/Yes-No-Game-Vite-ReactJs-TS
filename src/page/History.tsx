@@ -6,6 +6,9 @@ function History() {
             <div className=''>
                 <h1 className='text-[30px]'><span className='text-green-500 font-extrabold text-[30px]'>YES</span> - <span className='text-red-500 font-extrabold text-[30px]'>NO</span> <span className='text-[30px]'>Game</span></h1>
             </div>
+            <div>
+                WAITING FOR DEVELOP!
+            </div>
         </div>
     )
 }

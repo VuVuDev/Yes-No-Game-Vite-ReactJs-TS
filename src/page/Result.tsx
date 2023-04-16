@@ -49,7 +49,7 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
 
             </div>
             
-            <h1 className='mt-[20px] flex flex-wrap gap-2 px-2 font-bold w-[320px]'>Player: {
+            <h1 className='mt-[20px] flex flex-row justify-center gap-2 px-2 font-bold w-[320px]'>Player: {
                 gameData.map((item:any, index:number) => (
                     <div className='' key={index}>
                         <p className={`mr-2 font-bold underline pointer-events-none ${item.color}`}>{item.name.toUpperCase()}</p>
