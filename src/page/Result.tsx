@@ -52,7 +52,7 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
             <h1 className='mt-[20px] flex flex-row justify-center gap-2 px-2 font-bold w-[320px]'>Player: {
                 gameData.map((item:any, index:number) => (
                     <div className='' key={index}>
-                        <p className={`mr-2 font-bold pointer-events-none ${item.color}`}>{item.id === gameData.length ? item.name.toUpperCase() : item.name.toUpperCase() + ","}</p>
+                        <p className={`mr-2 font-bold pointer-events-none ${item.color}`}>{index === gameData.length - 1 ? item.name.toUpperCase() : item.name.toUpperCase() + ","}</p>
                     </div>
                 ))
             }</h1>
@@ -71,7 +71,7 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
                                 <div className='flex flex-row justify-between'>
                                     <div className={` bg-slate-200 w-[320px] font-bold py-2 rounded-md`}>
                                         <p className='ml-8'>Result: <span className={`${valueResult === "YES" ? "text-green-500" : "text-red-500"}`}>{valueResult}</span></p>
-                                        <p className='flex flex-col ml-8'>Winner:
+                                        <p className='ml-8'>Winner:
                                             {   
                                                 gameData.map((playerValue:any, indexPlayer:number) => {
                                                     let playerName
@@ -79,9 +79,9 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
                                                         playerName = playerValue?.name                                        
                                                     } 
                                                     return (
-                                                        <span className={`ml-[70px] mr-2 ${playerValue?.color}`}  key={indexPlayer}>{playerName}</span>
+                                                        <span className={` mx-2 ${playerValue?.color}`}  key={indexPlayer}>{playerName}</span>
                                                     )
-                                                })
+                                                })  
                                             }   
                                         </p>
                                     </div>

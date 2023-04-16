@@ -97,11 +97,11 @@ function Summary({gameData, setGameData}:Ipros) {
                 <h2>Final Result</h2>
             </div>
             <div className='flex flex-col h-[120px] sm:flex-row items-center justify-between mt-[20px] w-[360px] sm:w-[720px]'>
-                <h1 className='font-bold '>Winner: {
+                <h1 className='font-bold'>Winner: {
                     gameData.map((value:any, index:any) => {
                         if(value.status === "Winner") {
                             return (
-                                <span className={`${value.color} mr-2`} key={index}>{value.id === gameData.length ? value.name : value.name + ","}</span>
+                                <span className={`${value.color} mr-2`} key={index}>{value.name}</span>
                             )
                         }
                     })
