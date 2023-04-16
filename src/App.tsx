@@ -169,6 +169,8 @@ function App() {
 
       <Route path='/history' element={
       <History
+        gameHistory={gameHistory}
+        setGameHisotry = {setGameHistory}
       ></History>}></Route>
     </Routes>
 
