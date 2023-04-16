@@ -8,6 +8,7 @@ import SubmitAnswer from './page/SubmitAnswer'
 import Result from './page/Result'
 import Summary from './page/Summary'
 import History from './page/History'
+import Particel from './components/Particel'
 
 interface Player {
   newPlayer: {
@@ -137,6 +138,7 @@ function App() {
     
   return (
    <>
+    <Particel></Particel>
     <Routes>
       
       <Route path='/' element={
