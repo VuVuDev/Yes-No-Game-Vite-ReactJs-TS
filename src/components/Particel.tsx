@@ -53,7 +53,7 @@ function Particel() {
                     },
                     modes: {
                         push: {
-                            quantity: 10,
+                            quantity: 2,
                         },
                         repulse: {
                             distance: 100,
@@ -67,7 +67,7 @@ function Particel() {
                     },
                     links: {
                         color: "#000",
-                        distance: 150,
+                        distance: 120,
                         enable: true,
                         opacity: 0.3,
                         width: 1,
@@ -88,7 +88,7 @@ function Particel() {
                     number: {
                         density: {
                             enable: true,
-                            area: 1000,
+                            area: 800,
                         },
                         value: 100,
                     },
@@ -99,7 +99,7 @@ function Particel() {
                         type: "star",
                     },
                     size: {
-                        value: { min: 1, max: 2},
+                        value: { min: 1, max: 3},
                     },
                 },
                 detectRetina: true,
