@@ -76,7 +76,7 @@ function History({gameHistory, setGameHisotry}:Ipros) {
                     gameHistory.map((data: any, index: number) => {
                         return (
                             <div className='' key={index}>
-                                <div className='relative sm:h-[255px] h-[250px] sm:w-[820px] w-[360px] mt-[20px] bg-slate-100 rounded-md sm:p-[20px] p-[10px]'>
+                                <div className='relative sm:h-[255px] h-[235px] sm:w-[820px] w-[360px] mt-[20px] bg-slate-100 rounded-md sm:p-[20px] p-[10px]'>
                                     <button className='absolute sm:bottom-[31px] sm:left-[30px] bottom-[21px] left-[20px] px-2 py-2 bg-slate-300 rounded z-10'
                                         onClick={() => handleDeleteHistory(index)}
                                     ><FaTrashAlt className = "text-slate-600"></FaTrashAlt></button>
