@@ -11,14 +11,7 @@ interface IPros {
     inputRef: any
 }
 function ListNamePlayer({gameData, setClick, displayModel, setGameData, inputRef}:IPros) {
-    const CustomButton = styled(Button)`
-    color: white; 
-    width: 320px;
-    background: #565b6b;
-    :hover {
-        background: #6b7185;
-    }
-    `;
+
     const handleAddNewPlayer = () => {
         setClick(false)
         inputRef.current?.focus()        

@@ -18,8 +18,10 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const [answerArray, setAnswerArray] = useState<string[]>(Array.from({ length: gameData[0]?.rounds }, () => "Empty"))
     const navigate = useNavigate() 
+
     const fetchData = async () => {
         setLoading(true)
+        setResult(Array.from({length : gameData[0].rounds}, () => "Empty"))
         try {
          const responses = await Promise.all(
             Array.from({length: gameData[0]?.rounds}, () => axios.get('https://yesno.wtf/api'))
@@ -98,9 +100,9 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
                     count++
                 }
             })
-            let newPersentCorret = Math.round((count*100/data.length))
+            let newPersentCorrect = Math.round((count*100/data.length))
             value.totalCorrect = count
-            value.persentCorrect = newPersentCorret
+            value.persentCorrect = newPersentCorrect
             return {
                 ...value
             }

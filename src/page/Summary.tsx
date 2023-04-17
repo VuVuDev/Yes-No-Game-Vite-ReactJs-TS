@@ -2,13 +2,16 @@ import React from 'react'
 import {useState} from 'react'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router';
+import { Pagination } from '@mui/material';
 
 interface Ipros {
     gameData: any
     setGameData: any
+    setGameHistory: any
+    gameHistory: any
 }
 
-function Summary({gameData, setGameData}:Ipros) {
+function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
     
     const [search, setSearch] = useState<boolean>(false)
     const [searchList, setSearchList] = useState<object[]>([])
@@ -25,7 +28,11 @@ function Summary({gameData, setGameData}:Ipros) {
 
     const gotoHome = () => {
         navigate("/")
-    }
+        const newGameHistory = gameHistory.map((data:any, index: number) => {
+            return data
+        })
+        setGameHistory([...newGameHistory.reverse()]) 
+    }   
 
     let hiddenTable = search ? "" : "hidden"
     let appearTable = search ? "hidden" : ""
@@ -76,11 +83,13 @@ function Summary({gameData, setGameData}:Ipros) {
         {
             field: "name",
             headerName: "Summary",
+            align:'center',
             width: 180
         },
         {
             field: 'persentCorrect',
             headerName: "Correct Percent (%)",
+            align: 'center',
             width: 180
         }, 
         {
@@ -111,7 +120,7 @@ function Summary({gameData, setGameData}:Ipros) {
                     onClick={() => gotoHome()}
                 >Go to Home</h1>
             </div>
-            <div className={`h-[268px] mt-[20px] w-[360px] sm:w-[1000px] bg-slate-100 ${appearTable}`}>
+            <div className={`sm:h-[215px] h-[215px] mt-[20px] w-[360px] sm:w-[1000px] bg-slate-100 ${appearTable}`}>
                 <DataGrid
                     rows={gameData}
                     columns={columns}
@@ -119,7 +128,7 @@ function Summary({gameData, setGameData}:Ipros) {
                     autoPageSize
                 />
             </div>
-            <div className={`h-[268px] mt-[20px] w-[360px] sm:w-[1000px] bg-slate-100 ${hiddenTable}`}>
+            <div className={`sm:h-[215px] h-[215px] mt-[20px] w-[360px] sm:w-[1000px] bg-slate-100 ${hiddenTable}`}>
                 <DataGrid
                     rows={searchList}
                     columns={columns}
@@ -127,7 +136,7 @@ function Summary({gameData, setGameData}:Ipros) {
                     autoPageSize
                 />
             </div>
-            <div className={`h-[268px] mt-[20px] w-[360px] sm:w-[480px] bg-slate-100`}>
+            <div className={`sm:h-[214.5px] h-[215px] mt-[20px] w-[360px] sm:w-[480px] bg-slate-100`}>
                 <DataGrid
                     rows={gameData}
                     columns={columnsSummary}

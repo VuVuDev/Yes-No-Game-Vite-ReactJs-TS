@@ -56,20 +56,20 @@ function Particel() {
                             quantity: 2,
                         },
                         repulse: {
-                            distance: 100,
+                            distance: 200,
                             duration: 1,
                         },
                     },
                 },
                 particles: {
                     color: {
-                        value: "#000",
+                        value: "#F1C40F",
                     },
                     links: {
-                        color: "#000",
+                        color: "#E67E22",
                         distance: 120,
                         enable: true,
-                        opacity: 0.3,
+                        opacity: 0.5,
                         width: 1,
                     },
                     collisions: {
@@ -93,13 +93,13 @@ function Particel() {
                         value: 100,
                     },
                     opacity: {
-                        value: 0.3,
+                        value: 0.8,
                     },
                     shape: {
                         type: "star",
                     },
                     size: {
-                        value: { min: 1, max: 3},
+                        value: { min: 1, max: 4},
                     },
                 },
                 detectRetina: true,

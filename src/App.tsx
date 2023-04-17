@@ -39,7 +39,7 @@ function App() {
     totalCorrect: 0,
     status: "",
   })
-  const [gameData, setGameData] = useState<object[]>([])
+  const [gameData, setGameData] = useState<Player['newPlayer'][]>([])
   const [gameHistory, setGameHistory] = useState<object[]>([])
   const [result, setResult] = useState<string[]>([])
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,8 +48,8 @@ function App() {
   let hiddenModel = click ? "hidden" : ""
   let displayModel = click ? "" : "hidden"
   const currentTime = new Date().toLocaleString()
-  
-  const handleOnChange = (event:any):void => {
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
     setNewPlayer({
       ...newPlayer,
       name: event.target.value,
@@ -68,7 +68,7 @@ function App() {
     setClick(click => true)
   }
   
-  const checkDuplicateName = () => {
+  const checkDuplicateName = ():boolean => {
     let bool = false
     gameData.map((value:any,i:number) => {
       if(newPlayer.name.toLocaleLowerCase().includes(value.name.toLocaleLowerCase())) {
@@ -94,7 +94,7 @@ function App() {
       return
     }
 
-    if(checkDuplicateName() == true) {
+    if(checkDuplicateName() === true) {
       return
     }
     if(newPlayer.name.split("").length > 15) {
@@ -143,7 +143,7 @@ function App() {
       
       <Route path='/' element={
       <Home
-        setClick = {() => setClick(false)}
+        setClick = {setClick}
         setGameData = {setGameData}
         gameHistory={gameHistory}
         newPlayer={newPlayer}
@@ -161,9 +161,9 @@ function App() {
         setGameData = {setGameData}
         handleSetTotalRound = {handleSetTotalRound}
         totalRound = {totalRound}
-        handleOnChange={(e:any) => handleOnChange(e)}
-        handleSetPlayer={() => handleSetPlayer()}
-        setPlayer = {() => setPlayer()}  
+        handleOnChange={handleOnChange}
+        handleSetPlayer={handleSetPlayer}
+        setPlayer = {setPlayer}  
       ></CreateGame>}></Route>
 
       <Route path='/submit-answer' element={
@@ -190,6 +190,8 @@ function App() {
       <Summary
         gameData={gameData}
         setGameData={setGameData}
+        setGameHistory={setGameHistory}
+        gameHistory={gameHistory}
       ></Summary>}></Route>
 
       <Route path='/history' element={

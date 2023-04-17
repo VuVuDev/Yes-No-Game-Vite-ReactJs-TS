@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';

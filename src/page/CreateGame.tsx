@@ -33,9 +33,9 @@ function CreateGame({inputRef, handleOnChange, handleSetPlayer, displayModel,
             inputText = {inputText}
             hiddenModel = {hiddenModel}
             setClick = {setClick}
-            handleOnChange={(e:any) => handleOnChange(e)}
-            handleSetPlayer = {() => handleSetPlayer()}
-            setPlayer = {() => setPlayer()}
+            handleOnChange={handleOnChange}
+            handleSetPlayer = {handleSetPlayer}
+            setPlayer = {setPlayer}
         ></EnterNewName>
         <ListNamePlayer
             gameData = {gameData}

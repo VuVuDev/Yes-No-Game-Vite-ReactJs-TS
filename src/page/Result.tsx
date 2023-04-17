@@ -16,6 +16,8 @@ interface Ipros {
 function Result({gameData, loading, result, setGameData, setGameHistory, gameHistory}:Ipros) {
     let hiddenButton = loading ? "hidden" : ""
     let appearButton = loading ? "" : "hidden"
+    console.log(loading);
+    
     const navigate = useNavigate()
     const handleGotoSummary = () => {
         const maxPersentCorrect = gameData.reduce((max:any, player:any) => {
