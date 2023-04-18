@@ -3,19 +3,33 @@ import EnterNewName from '../components/EnterNewName';
 import ListNamePlayer from '../components/ListNamePlayer';
 import TotalOfRouned from '../components/TotalOfRouned';
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+  }
 interface IPros {
-    inputRef: any
-    handleOnChange: any
-    handleSetPlayer: any
-    displayModel: any,
-    inputText: string,
-    setPlayer: any,
-    gameData: any,
-    hiddenModel: any,
-    setClick: any,
-    setGameData: any,
-    handleSetTotalRound: any,
-    totalRound: any
+    inputRef: React.RefObject<HTMLInputElement>;
+    handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSetPlayer: () => void;
+    displayModel: string;
+    inputText: string;
+    setPlayer: () => void;
+    gameData: Player['newPlayer'][];
+    hiddenModel: string;
+    setClick: React.Dispatch<React.SetStateAction<boolean>>;
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    handleSetTotalRound: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    totalRound: string;
 }
 
 function CreateGame({inputRef, handleOnChange, handleSetPlayer, displayModel,

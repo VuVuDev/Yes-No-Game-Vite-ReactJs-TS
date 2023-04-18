@@ -5,48 +5,60 @@ import axios from 'axios';
 
 import AnswerOption from '../components/AnswerOption';
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+}
 interface Ipros {
-    gameData: any
-    totalRound: any
-    setGameData: any
-    loading: any
-    setLoading: any,
-    setResult: any
+    gameData: Player['newPlayer'][];
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setResult: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, setResult}:Ipros) {
+function SubmitAnswer({gameData, setGameData, setLoading, setResult}:Ipros) {
     const [currentIndex, setCurrentIndex] = useState<number>(0)
-    const [answerArray, setAnswerArray] = useState<string[]>(Array.from({ length: gameData[0]?.rounds }, () => "Empty"))
+    const [answerArray, setAnswerArray] = useState<string[]>(Array.from({ length: parseInt(gameData[0]?.rounds) }, () => "Empty"))
     const navigate = useNavigate() 
 
     const fetchData = async () => {
-        setLoading(true)
-        setResult(Array.from({length : gameData[0].rounds}, () => "Empty"))
+        setLoading(true);
+        setResult(Array.from({length : parseInt(gameData[0]?.rounds) }, () => "Empty"));
         try {
          const responses = await Promise.all(
-            Array.from({length: gameData[0]?.rounds}, () => axios.get('https://yesno.wtf/api'))
+            Array.from({length: parseInt(gameData[0]?.rounds) }, () => axios.get('https://yesno.wtf/api'))
          )
-         const data = responses.map((responses => responses.data.answer.toUpperCase()))
-         handleSetPlayerResult(data)
-         setResult(data)
+         const data = responses.map((responses => responses.data.answer.toUpperCase()));
+         handleSetPlayerResult(data);
+         setResult(data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
-    const onSubmitButtonClick = () => {
+    const onSubmitButtonClick = ():void => {
         
         if(currentIndex < gameData.length - 1) {
-            setCurrentIndex(currentIndex + 1)
-            setPlayerColor()
-            setAnswerArray(Array.from({ length: gameData[0]?.rounds }, () => "Empty"))
+            setCurrentIndex(currentIndex + 1);
+            setPlayerColor();
+            setAnswerArray(Array.from({ length: parseInt(gameData[0]?.rounds)}, () => "Empty"));
         }
         if(currentIndex == gameData.length - 1) {
-            navigate("/result-game")
-            setPlayerColor()
-            fetchData()
+            navigate("/result-game");
+            setPlayerColor();
+            fetchData();
         }
     }    
     const textColor = [
@@ -56,58 +68,58 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
         "text-amber-600",
         "text-violet-500"
     ]
-    const randomColor = textColor[Math.floor(Math.random() * textColor.length)]
+    const randomColor = textColor[Math.floor(Math.random() * textColor.length)];
     const setPlayerColor = () => {
-        let newGameData = gameData.map((value:any, index:number) => {
+        let newGameData = gameData.map((value:Player['newPlayer'], index:number) => {
             if(index === currentIndex) {
-                let rColor = randomColor
-                value.color = rColor
+                let rColor = randomColor;
+                value.color = rColor;
             }
             return {
                 ...value
             }
         })
-        setGameData([...newGameData])
+        setGameData([...newGameData]);
     }
 
     const handleSetPlayerAnswer = ((answerIndex:number, answerValue:string) => {
-        let newList = [...answerArray]
+        let newList = [...answerArray];
         if(answerArray[answerIndex] === answerValue) {
             newList[answerIndex] = "Empty";
-            setAnswerArray(newList)
+            setAnswerArray(newList);
         } else {
-            newList[answerIndex] = answerValue
-            setAnswerArray(newList)
+            newList[answerIndex] = answerValue;
+            setAnswerArray(newList);
         }
 
-        const newGamData = gameData.map((value:any, index:number) => {
+        const newGamData = gameData.map((value:Player['newPlayer'], index:number) => {
             if(index === currentIndex) {
-                value.chosen = newList
+                value.chosen = newList;
             }
             return {
                 ...value
             }
         })
-        setGameData([...newGamData])
+        setGameData([...newGamData]);
     })
 
     const handleSetPlayerResult = ((data:any) => {               
-        let newGameData = gameData.map((value:any, index:number) => {
-            value.result = data
-            let count = 0
+        let newGameData = gameData.map((value:Player['newPlayer'], index:number) => {
+            value.result = data;
+            let count = 0;
             value?.chosen?.map((answer:any, index:number) => {
                 if(answer === data[index]) {
-                    count++
+                    count++;
                 }
             })
-            let newPersentCorrect = Math.round((count*100/data.length))
-            value.totalCorrect = count
-            value.persentCorrect = newPersentCorrect
+            let newPersentCorrect = Math.round((count*100/data.length));
+            value.totalCorrect = count;
+            value.persentCorrect = newPersentCorrect;
             return {
                 ...value
             }
         })
-        setGameData([...newGameData])
+        setGameData([...newGameData]);
     })
     
 
@@ -119,8 +131,6 @@ function SubmitAnswer({gameData, totalRound, setGameData, loading, setLoading, s
 
             <AnswerOption 
                 player = {gameData[currentIndex]}
-                setGameData={setGameData}
-                totalRound = {totalRound}
                 handleSetPlayerAnswer = {handleSetPlayerAnswer}
             ></AnswerOption>
 

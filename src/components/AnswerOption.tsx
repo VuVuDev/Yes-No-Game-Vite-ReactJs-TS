@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { BiCheck } from "react-icons/bi";
 
 interface IPros {
-    totalRound: any
-    player: any
-    setGameData: any
-    handleSetPlayerAnswer: any
+    player: any;
+    handleSetPlayerAnswer: (answerIndex:number, answerValue:string) => void;
 }
 
-function Option({totalRound, player, setGameData,handleSetPlayerAnswer}:IPros) {
-    const rounds = []
+function Option({player,handleSetPlayerAnswer}:IPros) {
+    const rounds = [];
 
     for(let i = 0; i < player?.rounds; i++) {
-        let setGreenColor =  player.chosen[i] !== "YES" ? "text-green-500" : "bg-green-500 text-white"
-        let setRedColor = player.chosen[i] !== "NO" ? "text-red-500" : "bg-red-500 text-white"
+        let setGreenColor =  player.chosen[i] !== "YES" ? "text-green-500" : "bg-green-500 text-white";
+        let setRedColor = player.chosen[i] !== "NO" ? "text-red-500" : "bg-red-500 text-white";
         rounds.push(
             <div className='w-[320px] mt-[20px] flex flex-col' key={i}>
                 <h1>Round {i+1}:</h1>
@@ -33,14 +31,12 @@ function Option({totalRound, player, setGameData,handleSetPlayerAnswer}:IPros) {
     )
 }
 
-function AnswerOption({player, setGameData,totalRound, handleSetPlayerAnswer}:IPros) {
+function AnswerOption({player, handleSetPlayerAnswer}:IPros) {
     return (
         <div className='mt-[20px] flex flex-col items-center'>
             <h1 className='font-bold'>{player?.name}'s Turn</h1>
             <Option 
-            totalRound={totalRound}
             player={player}
-            setGameData={setGameData}
             handleSetPlayerAnswer = {handleSetPlayerAnswer}
             ></Option>
         </div>

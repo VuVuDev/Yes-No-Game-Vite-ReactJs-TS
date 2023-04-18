@@ -12,21 +12,21 @@ import Particel from './components/Particel'
 
 interface Player {
   newPlayer: {
-    id: number
-    name: string
-    createAt: string
-    color: string,
-    rounds: string,
-    chosen: object,
-    result: object,
-    persentCorrect: number,
-    totalCorrect: number,
-    status: string,
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
   }
 }
 
 function App() {
-  const [totalRound, setTotalRound] = useState<string>("")
+  const [totalRound, setTotalRound] = useState<string>("");
   const [newPlayer, setNewPlayer] = useState<Player['newPlayer']>({
     id: 0,
     name: "",
@@ -38,16 +38,16 @@ function App() {
     persentCorrect: 0,
     totalCorrect: 0,
     status: "",
-  })
-  const [gameData, setGameData] = useState<Player['newPlayer'][]>([])
-  const [gameHistory, setGameHistory] = useState<object[]>([])
-  const [result, setResult] = useState<string[]>([])
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [click, setClick] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>() 
-  let hiddenModel = click ? "hidden" : ""
-  let displayModel = click ? "" : "hidden"
-  const currentTime = new Date().toLocaleString()
+  });
+  const [gameData, setGameData] = useState<Player['newPlayer'][]>([]);
+  const [gameHistory, setGameHistory] = useState<object[]>([]);
+  const [result, setResult] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);;
+  const [click, setClick] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false) ;
+  let hiddenModel = click ? "hidden" : "";
+  let displayModel = click ? "" : "hidden";
+  const currentTime = new Date().toLocaleString();
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
     setNewPlayer({
@@ -55,66 +55,66 @@ function App() {
       name: event.target.value,
       createAt: currentTime,
     })
-  }
+  };
   const setPlayer = (): void => {
     setGameData([
       ...gameData, 
       newPlayer
-    ])
+    ]);
     setNewPlayer({
       ...newPlayer,
       name: ""
-    })
-    setClick(click => true)
-  }
+    });
+    setClick(click => true);
+  };
   
   const checkDuplicateName = ():boolean => {
-    let bool = false
+    let bool = false;
     gameData.map((value:any,i:number) => {
       if(newPlayer.name.toLocaleLowerCase().includes(value.name.toLocaleLowerCase())) {
-        alert("This name is already exist!")
-        bool = true
+        alert("This name is already exist!");
+        bool = true;
       }
     })
-    return bool
-  }
+    return bool;
+  };
 
   const handleSetPlayer = ():void => {
     if(newPlayer.name === "" || newPlayer.name.trimEnd() === "") {
-      alert("Input is empty!")
-      return
+      alert("Input is empty!");
+      return;
     }
     const pattern = /[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/;
     if(pattern.test(newPlayer.name)) {
-      alert("Name does not contain special character!")
-      return
+      alert("Name does not contain special character!");
+      return;
     }
     if(/\d+/.test(newPlayer.name)) {
-      alert("Name does not contain number!")
-      return
+      alert("Name does not contain number!");
+      return;
     }
 
     if(checkDuplicateName() === true) {
-      return
+      return;
     }
     if(newPlayer.name.split("").length > 15) {
-      alert("Player name too long!")
+      alert("Player name too long!");
       setNewPlayer({
         ...newPlayer,
         name: ""
       })
-      return
+      return;
     }
     if(newPlayer.name.split(' ').length >= 2) {
-      alert("Invalid Value!")
-      return
+      alert("Invalid Value!");
+      return;
     }    
-    setPlayer()
-  }
+    setPlayer();
+  };
   const handleSetTotalRound = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setTotalRound(value)
-  }
+    setTotalRound(value);
+  };
   
   useEffect(() => {
     const storedData = localStorage.getItem("gameData");
@@ -169,9 +169,7 @@ function App() {
       <Route path='/submit-answer' element={
       <SubmitAnswer
         gameData={gameData}
-        totalRound={totalRound}
         setGameData={setGameData}
-        loading={loading}
         setLoading={setLoading}
         setResult={setResult}
       ></SubmitAnswer>}></Route>

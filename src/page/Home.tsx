@@ -2,28 +2,42 @@ import React from 'react'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+}
 interface IPros {
-    setClick: any
-    setGameData: any
-    gameHistory: any
-    newPlayer:any
-    setNewPlayer: any
+    setClick: React.Dispatch<React.SetStateAction<boolean>>;
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    gameHistory: object[];
+    newPlayer: Player['newPlayer'];
+    setNewPlayer: React.Dispatch<React.SetStateAction<Player['newPlayer']>>;
 }
 
 function Home({setClick, setGameData, gameHistory, newPlayer, setNewPlayer}:IPros) {
-    const [startActive, setStartActive] = useState(false)
-    let started = startActive ? "bg-green-500" : "bg-gray-500"
-    let activeAdd = startActive ? "" : "hidden"
-    const navigate = useNavigate()
-    const handleAddNewGame = () => {
-        setGameData([])
+    const [startActive, setStartActive] = useState<boolean>(false);
+    let started = startActive ? "bg-green-500" : "bg-gray-500";
+    let activeAdd = startActive ? "" : "hidden";
+    const navigate = useNavigate();
+    const handleAddNewGame = ():void => {
+        setGameData([]);
         setNewPlayer({
             ...newPlayer,
             name:""
         })
-        navigate("/create-game")
-        setClick(false)
-    }
+        navigate("/create-game");
+        setClick(false);
+    };
     return (
         <div className='flex w-screen flex-col h-screen items-center pt-[50px]'>
             <div className='flex flex-col items-center'>

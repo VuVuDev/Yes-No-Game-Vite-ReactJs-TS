@@ -3,21 +3,35 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import { TiDelete } from "react-icons/ti";
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+}
 interface IPros {
-    gameData: any
-    setClick: any
-    displayModel: any
-    setGameData: any
-    inputRef: any
+    gameData: Player['newPlayer'][];
+    setClick: React.Dispatch<React.SetStateAction<boolean>>;
+    displayModel: string;
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    inputRef: React.RefObject<HTMLInputElement>;
 }
 function ListNamePlayer({gameData, setClick, displayModel, setGameData, inputRef}:IPros) {
 
-    const handleAddNewPlayer = () => {
-        setClick(false)
-        inputRef.current?.focus()        
+    const handleAddNewPlayer = ():void => {
+        setClick(false);
+        inputRef.current?.focus() ;       
     }
-    const deletePlayer = (index:number) => {
-        let MinusPlayer = gameData.filter((value:object, id:number) => id!==index)
+    const deletePlayer = (index:number):void => {
+        let MinusPlayer = gameData.filter((value:object, id:number) => id!==index);
         setGameData([...MinusPlayer]);
     }
     return (
@@ -29,7 +43,7 @@ function ListNamePlayer({gameData, setClick, displayModel, setGameData, inputRef
                     <th className='border-2 w-[160px]'>Player</th>
                 </tr>
                 {
-                    gameData.map((items:any, index:any) => (
+                    gameData.map((items:Player['newPlayer'], index:any) => (
                         <tr key={index}>
                             <td className='border-2 text-center w-[100px] relative'>{index + 1} 
                                 <span className='absolute top-[3px] right-5'>

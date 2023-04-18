@@ -3,78 +3,93 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import { useNavigate} from 'react-router';
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+}
 interface Ipros {
-    displayModel: any
-    gameData: any
-    handleSetTotalRound: any
-    setGameData: any
-    totalRound:any
+    displayModel: string;
+    gameData: Player['newPlayer'][];
+    handleSetTotalRound: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    totalRound:string;
 }
 function TotalOfRouned({displayModel, gameData, handleSetTotalRound, totalRound, setGameData}:Ipros) {
-    const navigate = useNavigate()
-    const checkGameData = () => {
+    const navigate = useNavigate();
+    
+    const checkGameData = ():any => {
         if(gameData.length <= 1) {
-            return true
+            return true;
         } else if (totalRound === "") {
-            return false
+            return false;
         }
     }
 
     let cursorNotAllow = checkGameData() ? "cursor-not-allowed" : ""
 
-    const tempArray:any  = []
-    for (let i = 0; i < totalRound; i++) {
-        tempArray.push("Empty")
+    const tempArray:string[]  = []
+    for (let i = 0; i < parseInt(totalRound); i++) {
+        tempArray.push("Empty");
     }
 
-    const setInfoPlayer = (totalRound:any, tempArray: any) => {
+    const setInfoPlayer = (totalRound:string, tempArray: string[]):void => {
     
-       let newGameData = gameData.map((value:any, index:any) => { 
-            value.id = index + 1
-            value.rounds = totalRound
-            value.chosen = tempArray
+       let newGameData = gameData.map((value:Player['newPlayer'], index:number) => { 
+            value.id = index + 1;
+            value.rounds = totalRound;
+            value.chosen = tempArray;
             return {
                 ...value
             }
        })
-       setGameData([...newGameData])
+       setGameData([...newGameData]);
     }
 
-    const handleStartGame = () => {
-        if (checkGameData()  == true){  
-            alert("Doesn't have enough player to join the game")
-            return
+    const handleStartGame = (): void => {
+        if (checkGameData()  == true) {  
+            alert("Doesn't have enough player to join the game");
+            return;
         }
         if (totalRound === "" || totalRound.trimEnd() === "") {
-            alert("You must enter total of round to start the game!")
-            return
+            alert("You must enter total of round to start the game!");
+            return;
         }
         if (parseInt(totalRound) <= 0) {
-            alert("Number of round must greater than 0!")
-            return
+            alert("Number of round must greater than 0!");
+            return;
         }
         const pattern = /[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/;
         if (pattern.test(totalRound)) {
-            alert("Total of round does not contain special character!")
-            return
+            alert("Total of round does not contain special character!");
+            return;
         }
         if (parseInt(totalRound) >= 100) {
-            alert("Total of round too large!")
-            return
+            alert("Total of round too large!");
+            return;
         }
         if (isNaN(Number(totalRound))) {
-            alert("Total of round must be a number!")
-            return
+            alert("Total of round must be a number!");
+            return;
         } else {
-            navigate("/submit-answer")
-            setInfoPlayer(totalRound, tempArray)
+            navigate("/submit-answer");
+            setInfoPlayer(totalRound, tempArray);
             // console.log(gameData);
             
         }
     }
     const handleStartGameOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === "Enter") {
-            handleStartGame()
+            handleStartGame();
         }
     }
     return (

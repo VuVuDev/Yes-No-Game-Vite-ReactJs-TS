@@ -4,38 +4,52 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router';
 import { Pagination } from '@mui/material';
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+}
 interface Ipros {
-    gameData: any
-    setGameData: any
-    setGameHistory: any
-    gameHistory: any
+    gameData: Player['newPlayer'][];
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    setGameHistory: React.Dispatch<React.SetStateAction<object[]>>;
+    gameHistory: object[];
 }
 
 function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
     
-    const [search, setSearch] = useState<boolean>(false)
-    const [searchList, setSearchList] = useState<object[]>([])
-    const navigate = useNavigate()
+    const [search, setSearch] = useState<boolean>(false);
+    const [searchList, setSearchList] = useState<object[]>([]);
+    const navigate = useNavigate();
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let searchWord:string = event.target.value
-        setSearch(true)
-        let newGameData = gameData.filter((value:any, index:number) => {
-            return value.name.toLowerCase().includes(searchWord.toLowerCase())
-        })
-        setSearchList([...newGameData])
+        let searchWord:string = event.target.value;
+        setSearch(true);
+        let newGameData = gameData.filter((value:Player['newPlayer'], index:number) => {
+            return value.name.toLowerCase().includes(searchWord.toLowerCase());
+        });
+        setSearchList([...newGameData]);
     }
 
-    const gotoHome = () => {
+    const gotoHome = ():void => {
         navigate("/")
-        const newGameHistory = gameHistory.map((data:any, index: number) => {
-            return data
+        const newGameHistory = gameHistory.map((data:object, index: number) => {
+            return data;
         })
-        setGameHistory([...newGameHistory.reverse()]) 
+        setGameHistory([...newGameHistory.reverse()]);
     }   
 
-    let hiddenTable = search ? "" : "hidden"
-    let appearTable = search ? "hidden" : ""
+    let hiddenTable = search ? "" : "hidden";
+    let appearTable = search ? "hidden" : "";
 
     const columns: GridColDef[] = [
         {
@@ -98,7 +112,7 @@ function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
             align: 'center',
             width: 110
         }
-      ]
+      ];
     return (
         <div className='flex w-screen flex-col h-fit items-center pt-[50px] pb-[20px]'>
             <div className='flex flex-col items-center'>
@@ -124,7 +138,6 @@ function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
                 <DataGrid
                     rows={gameData}
                     columns={columns}
-                    // pageSizeOptions={[5]}
                     autoPageSize
                 />
             </div>
@@ -132,7 +145,6 @@ function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
                 <DataGrid
                     rows={searchList}
                     columns={columns}
-                    // pageSizeOptions={[5]}
                     autoPageSize
                 />
             </div>
@@ -140,7 +152,6 @@ function Summary({gameData, setGameHistory, gameHistory}:Ipros) {
                 <DataGrid
                     rows={gameData}
                     columns={columnsSummary}
-                    // pageSizeOptions={[5]}
                     autoPageSize
                 />
             </div>

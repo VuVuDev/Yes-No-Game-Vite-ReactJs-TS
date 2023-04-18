@@ -1,21 +1,21 @@
 import React from 'react'
 
 interface Ipros {
-    inputRef: any
-    handleOnChange: any
-    handleSetPlayer: any
-    setPlayer: any
-    inputText: any
-    hiddenModel: any
-    setClick: any
+    inputRef: React.RefObject<HTMLInputElement>
+    handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSetPlayer: () => void;
+    setPlayer: () => void;
+    inputText: string
+    hiddenModel: string
+    setClick: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function EnterNewName({inputRef, handleOnChange, handleSetPlayer, setPlayer,inputText, hiddenModel, setClick}:Ipros) {
     const handleSetPlayerOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if(event.key === "Enter") {
-            handleSetPlayer()
+            handleSetPlayer();
         }
-    }
+    };
     return (
         <div className={`flex flex-col items-center mt-[20px] w-fit bg-slate-100 rounded-md p-4 ${hiddenModel}`}>
             <h2 className='font-bold'>Create Your New Game</h2>

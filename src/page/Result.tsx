@@ -4,43 +4,56 @@ import { RotateSpinner, WhisperSpinner } from 'react-spinners-kit';
 import { Skeleton } from '@mui/material';
 import { useNavigate } from 'react-router';
 
+interface Player {
+    newPlayer: {
+    id: number;
+    name: string;
+    createAt: string;
+    color: string;
+    rounds: string;
+    chosen: string[];
+    result: string[];
+    persentCorrect: number;
+    totalCorrect: number;
+    status: string;
+    }
+};
 interface Ipros {
-    gameData: any
-    loading: any
-    result: any
-    setGameData: any
-    setGameHistory: any
-    gameHistory: any
-}
+    gameData: Player['newPlayer'][];
+    loading: boolean;
+    result: string[];
+    setGameData: React.Dispatch<React.SetStateAction<Player['newPlayer'][]>>;
+    setGameHistory: React.Dispatch<React.SetStateAction<object[]>>;
+    gameHistory: object[];
+};
 
 function Result({gameData, loading, result, setGameData, setGameHistory, gameHistory}:Ipros) {
-    let hiddenButton = loading ? "hidden" : ""
-    let appearButton = loading ? "" : "hidden"
-    console.log(loading);
+    let hiddenButton = loading ? "hidden" : "";
+    let appearButton = loading ? "" : "hidden";
     
-    const navigate = useNavigate()
-    const handleGotoSummary = () => {
+    const navigate = useNavigate();
+    const handleGotoSummary = ():void => {
         const maxPersentCorrect = gameData.reduce((max:any, player:any) => {
             return player?.persentCorrect > max ? player?.persentCorrect : max
-        }, 0)
+        }, 0);
         let newGameData = gameData.map((value:any, index:any) => {
             if(value?.persentCorrect === maxPersentCorrect) {
-                value.status = "Winner"  
+                value.status = "Winner";
             } else {
-                value.status = "Loser"
+                value.status = "Loser";
             }
             return {
                 ...value
             }
         })        
-        setGameData([...newGameData])
+        setGameData([...newGameData]);
         setGameHistory([
             ...gameHistory,
             {
                 newGameData
             }
-        ])
-        navigate("/summary")
+        ]);
+        navigate("/summary");
     }
 
     return (    
@@ -77,7 +90,7 @@ function Result({gameData, loading, result, setGameData, setGameHistory, gameHis
                                                 <p className='ml-8'>Result: <span className={`${valueResult === "YES" ? "text-green-500" : "text-red-500"}`}>{valueResult}</span></p>
                                                 <p className='ml-8'>Winner:
                                                     {   
-                                                        gameData.map((playerValue:any, indexPlayer:number) => {
+                                                        gameData.map((playerValue:Player['newPlayer'], indexPlayer:number) => {
                                                             let playerName
                                                             if(playerValue?.chosen[index] === valueResult) {
                                                                 playerName = playerValue?.name

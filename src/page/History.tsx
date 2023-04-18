@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 interface Ipros {
-    gameHistory: any
-    setGameHisotry: any
+    gameHistory: object[]
+    setGameHisotry: React.Dispatch<React.SetStateAction<object[]>>;
 }
 
 function History({gameHistory, setGameHisotry}:Ipros) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const columns: GridColDef[] = [
         {
             field: "id", 
@@ -47,12 +47,12 @@ function History({gameHistory, setGameHisotry}:Ipros) {
         }
       ];
       
-      const handleDeleteAllHistory = () => {
-            setGameHisotry([])
+      const handleDeleteAllHistory = ():void => {
+            setGameHisotry([]);
       }
-      const handleDeleteHistory = (index:number) => {
-        let MinusHistory = gameHistory.filter((value:object, id:number) => id!==index)
-        setGameHisotry([...MinusHistory])
+      const handleDeleteHistory = (index:number):void => {
+        let MinusHistory = gameHistory.filter((value:object, id:number) => id!==index);
+        setGameHisotry([...MinusHistory]);
       }
 
     return (
